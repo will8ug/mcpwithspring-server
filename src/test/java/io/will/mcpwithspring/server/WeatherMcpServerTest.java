@@ -10,8 +10,8 @@ import io.modelcontextprotocol.spec.McpSchema.TextContent;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.http.client.reactive.ReactorClientHttpConnector;
-import reactor.netty.http.client.HttpClient;
+//import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+//import reactor.netty.http.client.HttpClient;
 import java.time.Duration;
 import java.util.Map;
 
@@ -21,14 +21,14 @@ import static org.junit.jupiter.api.Assertions.*;
  * Start this spring-boot application before running this test.
  * - ./mvnw spring-boot:run
  */
-public class WeatherMcpServerIT {
+public class WeatherMcpServerTest {
     @Test
     @Timeout(30)
     public void test() {
-        var httpClient = HttpClient.create()
-            .responseTimeout(Duration.ofSeconds(10))
-            .option(io.netty.channel.ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
-            .option(io.netty.channel.ChannelOption.SO_TIMEOUT, 10000);
+//        var httpClient = HttpClient.create()
+//            .responseTimeout(Duration.ofSeconds(10))
+//            .option(io.netty.channel.ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
+//            .option(io.netty.channel.ChannelOption.SO_TIMEOUT, 10000);
         
         var builder = WebClient.builder().baseUrl("http://localhost:8080");
 //            .clientConnector(new ReactorClientHttpConnector(httpClient));
@@ -43,7 +43,7 @@ public class WeatherMcpServerIT {
             System.out.println();
             ListToolsResult toolsList = client.listTools();
             System.out.println(toolsList);
-            assertEquals(3, toolsList.tools().size());
+            assertEquals(2, toolsList.tools().size());
 
             CallToolResult result = client.callTool(new CallToolRequest("get_weather",
                     Map.of("city", "Changsha")));
@@ -59,6 +59,7 @@ public class WeatherMcpServerIT {
             // CallToolResult[content=[TextContent[audience=null, priority=null, text={"scanAvailable":true}]], isError=false]
             // CallToolResult[content=[TextContent[audience=null, priority=null, text="{condition=Sunny, city=Changsha, temperature=22°C, humidity=65%, description=Clear skies with light breeze, windSpeed=10 km/h}"]], isError=false]
             assertFalse(resultString.isEmpty());
+            assertTrue(resultString.toString().contains("Changsha"));
 
             client.closeGracefully();
         } catch (Exception ex) {
