@@ -56,6 +56,7 @@ public class WeatherMcpServerIT {
                 }
             });
             System.out.println(resultString);
+            // CallToolResult[content=[TextContent[audience=null, priority=null, text={"scanAvailable":true}]], isError=false]
             // CallToolResult[content=[TextContent[audience=null, priority=null, text="{condition=Sunny, city=Changsha, temperature=22°C, humidity=65%, description=Clear skies with light breeze, windSpeed=10 km/h}"]], isError=false]
             assertFalse(resultString.isEmpty());
 

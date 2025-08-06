@@ -16,11 +16,11 @@ public class WeatherController {
 
     @GetMapping("/{city}")
     public Mono<Map<String, Object>> getWeather(@PathVariable String city) {
-        return weatherService.getWeather(city);
+        return Mono.just(weatherService.getWeather(city));
     }
 
     @GetMapping("/{city}/summary")
     public Mono<String> getWeatherSummary(@PathVariable String city) {
-        return weatherService.getWeatherSummary(city);
+        return Mono.just(weatherService.getWeatherSummary(city));
     }
 } 

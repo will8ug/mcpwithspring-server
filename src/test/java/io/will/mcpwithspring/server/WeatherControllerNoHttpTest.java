@@ -6,14 +6,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import reactor.test.StepVerifier;
 
 @SpringBootTest
-class WeatherMcpServerTest {
+class WeatherControllerNoHttpTest {
 
     @Autowired
-    private WeatherService weatherService;
+    private WeatherController weatherController;
 
     @Test
     void testGetWeather() {
-        StepVerifier.create(weatherService.getWeather("London"))
+        StepVerifier.create(weatherController.getWeather("London"))
             .expectNextMatches(data -> 
                 data.get("city").equals("London") &&
                 data.get("temperature").equals("22°C") &&
@@ -24,7 +24,7 @@ class WeatherMcpServerTest {
 
     @Test
     void testGetWeatherSummary() {
-        StepVerifier.create(weatherService.getWeatherSummary("Paris"))
+        StepVerifier.create(weatherController.getWeatherSummary("Paris"))
             .expectNextMatches(summary -> 
                 summary.contains("Paris") && 
                 summary.contains("Sunny") &&
@@ -35,7 +35,7 @@ class WeatherMcpServerTest {
 
     @Test
     void testWeatherDataStructure() {
-        StepVerifier.create(weatherService.getWeather("Tokyo"))
+        StepVerifier.create(weatherController.getWeather("Tokyo"))
             .expectNextMatches(data -> 
                 data.containsKey("city") &&
                 data.containsKey("temperature") &&
@@ -46,4 +46,4 @@ class WeatherMcpServerTest {
             )
             .verifyComplete();
     }
-} 
+}
