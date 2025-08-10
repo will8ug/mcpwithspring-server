@@ -27,6 +27,8 @@ public class WeatherService {
 
     @Tool(name = "get_weather_summary", description = "Get a human-readable weather summary for a specific city")
     public String getWeatherSummary(String city) {
+        System.out.println("get_weather_summary");
+
         Map<String, Object> weather = getWeather(city);
         return String.format("The weather in %s is %s with a temperature of %s. %s",
                 weather.get("city"),
