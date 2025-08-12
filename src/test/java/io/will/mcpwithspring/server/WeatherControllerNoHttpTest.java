@@ -14,10 +14,10 @@ class WeatherControllerNoHttpTest {
     @Test
     void testGetWeather() {
         StepVerifier.create(weatherController.getWeather("London"))
-            .expectNextMatches(data -> 
-                data.get("city").equals("London") &&
-                data.get("temperature").equals("22°C") &&
-                data.get("condition").equals("Sunny")
+            .expectNextMatches(weatherData -> 
+                weatherData.city().equals("London") &&
+                weatherData.temperature().equals("22°C") &&
+                weatherData.condition().equals("Sunny")
             )
             .verifyComplete();
     }
@@ -36,13 +36,13 @@ class WeatherControllerNoHttpTest {
     @Test
     void testWeatherDataStructure() {
         StepVerifier.create(weatherController.getWeather("Tokyo"))
-            .expectNextMatches(data -> 
-                data.containsKey("city") &&
-                data.containsKey("temperature") &&
-                data.containsKey("condition") &&
-                data.containsKey("humidity") &&
-                data.containsKey("windSpeed") &&
-                data.containsKey("description")
+            .expectNextMatches(weatherData -> 
+                weatherData.city() != null &&
+                weatherData.temperature() != null &&
+                weatherData.condition() != null &&
+                weatherData.humidity() != null &&
+                weatherData.windSpeed() != null &&
+                weatherData.description() != null
             )
             .verifyComplete();
     }

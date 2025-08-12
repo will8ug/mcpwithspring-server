@@ -2,7 +2,6 @@ package io.will.mcpwithspring.server;
 
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/weather")
@@ -15,7 +14,7 @@ public class WeatherController {
     }
 
     @GetMapping("/{city}")
-    public Mono<Map<String, Object>> getWeather(@PathVariable String city) {
+    public Mono<WeatherData> getWeather(@PathVariable String city) {
         return Mono.just(weatherService.getWeather(city));
     }
 
@@ -23,4 +22,4 @@ public class WeatherController {
     public Mono<String> getWeatherSummary(@PathVariable String city) {
         return Mono.just(weatherService.getWeatherSummary(city));
     }
-} 
+}
